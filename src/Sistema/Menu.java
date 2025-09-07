@@ -1,30 +1,77 @@
-
 package Sistema;
+
 import javax.swing.*;
 
 public class Menu extends javax.swing.JFrame {
-    private JDesktopPane desktopPane;
-     // Referencias a tus internal frames
-    private Factura ventanaFactura;
 
+    private JDesktopPane desktopPane;
+    // InternalFrames
+    private Factura ventanaFactura;
+    private RegistrarCliente ventanaRegistrarCliente;
+    private VerClientes ventanaVerClientes;
 
     public Menu() {
-       initComponents();
+        initComponents();
         setLocationRelativeTo(null);
-
         // Creamos y agregamos el escritorio
         desktopPane = new JDesktopPane();
         setContentPane(desktopPane);
-
         // Agregar menú de Factura dentro de Ventas
         JMenuItem nuevaFactura = new JMenuItem("Nueva Factura");
         jMenu3.add(nuevaFactura);
-
         // Acción para abrir Factura
         nuevaFactura.addActionListener(e -> abrirFactura());
-
         // Pantalla completa opcional
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // Agregar menú de Registro y Ver Clientes
+        JMenuItem itemRegistrar = new JMenuItem("Registrar Cliente");
+        JMenuItem itemVer = new JMenuItem("Ver Clientes");
+        //Abrir Registrar y Ver CLIENTES
+        jMenu2.add(itemRegistrar);
+        jMenu2.add(itemVer);
+        itemRegistrar.addActionListener(e -> abrirRegistrarCliente());
+        itemVer.addActionListener(e -> abrirVerClientes());
+
+    }
+
+    private void abrirRegistrarCliente() {
+        try {
+            if (ventanaRegistrarCliente == null || ventanaRegistrarCliente.isClosed()) {
+                ventanaRegistrarCliente = new RegistrarCliente();
+                desktopPane.add(ventanaRegistrarCliente);
+                ventanaRegistrarCliente.pack(); // o setSize si lo prefieres
+
+                int x = (desktopPane.getWidth() - ventanaRegistrarCliente.getWidth()) / 2;
+                int y = (desktopPane.getHeight() - ventanaRegistrarCliente.getHeight()) / 2;
+                ventanaRegistrarCliente.setLocation(Math.max(x, 0), Math.max(y, 0));
+
+                ventanaRegistrarCliente.setVisible(true);
+            } else {
+                ventanaRegistrarCliente.setSelected(true);
+            }
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void abrirVerClientes() {
+        try {
+            if (ventanaVerClientes == null || ventanaVerClientes.isClosed()) {
+                ventanaVerClientes = new VerClientes();
+                desktopPane.add(ventanaVerClientes);
+                ventanaVerClientes.pack();
+
+                int x = (desktopPane.getWidth() - ventanaVerClientes.getWidth()) / 2;
+                int y = (desktopPane.getHeight() - ventanaVerClientes.getHeight()) / 2;
+                ventanaVerClientes.setLocation(Math.max(x, 0), Math.max(y, 0));
+
+                ventanaVerClientes.setVisible(true);
+            } else {
+                ventanaVerClientes.setSelected(true);
+            }
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void abrirFactura() {
@@ -92,8 +139,7 @@ public class Menu extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-          
-    
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
