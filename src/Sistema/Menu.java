@@ -35,7 +35,7 @@ public class Menu extends javax.swing.JFrame {
 
     }
 
-    private void abrirRegistrarCliente() {
+    public void abrirRegistrarCliente() {
         try {
             if (ventanaRegistrarCliente == null || ventanaRegistrarCliente.isClosed()) {
                 ventanaRegistrarCliente = new RegistrarCliente();
