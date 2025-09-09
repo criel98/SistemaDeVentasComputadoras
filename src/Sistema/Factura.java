@@ -1,6 +1,6 @@
 
 package Sistema;
-import java.time.LocalDate;
+import java.time.LocalDate; // Importar la libreria de tiempo
 import java.util.Locale;
 
 public class Factura extends javax.swing.JInternalFrame {
