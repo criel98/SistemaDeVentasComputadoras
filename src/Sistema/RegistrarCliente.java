@@ -288,9 +288,13 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         return;
     }
 
-       Cliente c = new Cliente(documento, tipoDoc, nombre, apellido, direc, correo, telefono);
+       if (Cliente.checkRegistro(documento)) {
+        JOptionPane.showMessageDialog(this, "Este cliente ya está registrado.");
+        return;
+    }
 
-    // directamente con la clase Cliente
+    // Crear nuevo cliente y agregarlo a la lista
+    Cliente c = new Cliente(documento, tipoDoc, nombre, apellido, direc, correo, telefono);
     Cliente.getListClientes().add(c);
     Cliente.guardarClientesEnArchivo();
 

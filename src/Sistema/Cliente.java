@@ -77,9 +77,21 @@ public class Cliente {
             System.out.println("No se encontró Clientes.csv, iniciando lista vacía.");
         }
     }
-
+ // Método privado para verificar si un cliente ya está registrado
+    private static boolean validarRegistro(String documento) {
+        for (Cliente c : listClientes) {
+            if (c.getDocumento().equals(documento)) {
+                return true;
+            }
+        }
+        return false;
+    }
     // Para acceder a la lista desde fuera
     public static List<Cliente> getListClientes() {
         return listClientes;
+    }
+    // Método público para acceder la validación privada
+      public static boolean checkRegistro(String documento) {
+        return validarRegistro(documento);
     }
 }
