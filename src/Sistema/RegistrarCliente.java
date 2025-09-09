@@ -31,6 +31,9 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         // opcional: tamaño por defecto
         setSize(520, 360);
     }
+public void setDni(String dni) {
+    LecturaDF.setText(dni); // txtDni es el JTextField de RegistrarCliente
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,7 +191,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
-                                    .addComponent(jLabel7))
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel6)
@@ -238,8 +241,6 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
                             .addComponent(btnLimpiar))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
-
-        jLabel7.getAccessibleContext().setAccessibleName("Numero");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

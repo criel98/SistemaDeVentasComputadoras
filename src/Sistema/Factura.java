@@ -24,6 +24,7 @@ public class Factura extends javax.swing.JInternalFrame {
         }
     });
     }
+    
     private void buscarCliente() {
     String documento = txtDni.getText().trim();
 
@@ -52,11 +53,13 @@ public class Factura extends javax.swing.JInternalFrame {
         jTextField14.setText("");
         jTextField15.setText("");
         jTextField5.setText("");
-   Menu menu = (Menu) javax.swing.SwingUtilities.getWindowAncestor(this);
-if (menu != null) {
-    menu.abrirRegistrarCliente();
-}
+   // Abrir RegistrarCliente y pasar el DNI
+        Menu menu = (Menu) javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (menu != null) {
+            RegistrarCliente rc = menu.abrirRegistrarCliente(); // devuelve la instancia
+            rc.setDni(txtDni.getText()); // aquí pasamos el DNI
     }
+  }
 }
 
     /**

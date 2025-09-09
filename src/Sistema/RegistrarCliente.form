@@ -91,7 +91,7 @@
                                           <Component id="email" alignment="0" max="32767" attributes="0"/>
                                           <Component id="Nombre" alignment="1" pref="179" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" min="-2" pref="52" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">

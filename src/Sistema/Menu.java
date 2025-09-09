@@ -35,7 +35,7 @@ public class Menu extends javax.swing.JFrame {
 
     }
 
-    public void abrirRegistrarCliente() {
+    public RegistrarCliente abrirRegistrarCliente() {
         try {
             if (ventanaRegistrarCliente == null || ventanaRegistrarCliente.isClosed()) {
                 ventanaRegistrarCliente = new RegistrarCliente();
@@ -53,6 +53,7 @@ public class Menu extends javax.swing.JFrame {
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
+        return ventanaRegistrarCliente;
     }
 
     private void abrirVerClientes() {
@@ -73,6 +74,7 @@ public class Menu extends javax.swing.JFrame {
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
+        
     }
 
     private void abrirFactura() {
