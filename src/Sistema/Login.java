@@ -6,13 +6,14 @@ package Sistema;
  * @author Daniel
  */
 public class Login extends javax.swing.JFrame {
-   private Auth auth = new Auth();
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+      
     }
 
     /**
@@ -32,6 +33,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LOGIN");
         setLocation(new java.awt.Point(0, 0));
 
         btnIngresar.setActionCommand("btnIngresar");
@@ -84,10 +86,10 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-    String usuario = txtUsuario.getText();
-    String clave = new String(txtPassword.getPassword());
-     if (auth.autenticar(usuario, clave)) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + usuario);
+      clases.Auth auth =new clases.Auth();
+      auth.testConexion();
+     if (auth.autenticar(txtUsuario, txtPassword)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + txtUsuario.getText());
        // Abrir la ventana principal
     new Menu().setVisible(true);
 
