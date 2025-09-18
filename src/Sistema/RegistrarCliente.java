@@ -136,7 +136,7 @@ public void setDni(String dni) {
         });
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/client (1).png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/client (1).png"))); // NOI18N
         jLabel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel5.setMaximumSize(new java.awt.Dimension(512, 512));
         jLabel5.setName(""); // NOI18N

@@ -87,7 +87,6 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
       clases.Auth auth =new clases.Auth();
-      auth.testConexion();
      if (auth.autenticar(txtUsuario, txtPassword)) {
         javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido " + txtUsuario.getText());
        // Abrir la ventana principal
