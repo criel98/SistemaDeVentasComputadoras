@@ -293,7 +293,7 @@ public void setDni(String dni) {
         return;
     }
 
-    // Ahora guardar en la BD con ConexionBD
+    // Guardar en SQL
     String sql = "INSERT INTO clientes (documento, tipoDocumento, nombre, apellido, direccion, correo, numero) "
                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 

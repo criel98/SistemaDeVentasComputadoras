@@ -26,7 +26,6 @@ public class ConexionBD {
     }
 
     public static void main(String[] args) {
-        // Probar la conexion
         getConnection();
     }
 }
