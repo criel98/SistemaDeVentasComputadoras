@@ -10,10 +10,7 @@ public class Factura extends javax.swing.JInternalFrame {
      */
     public Factura() {
         initComponents();
-       // Cargar clientes desde archivo al iniciar
-    Cliente.cargarClientesDesdeArchivo();
-   jTxtFecha.setText(LocalDate.now().toString());
-    
+       
     // Agregar listener al txtDni
     txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
         @Override
@@ -28,38 +25,7 @@ public class Factura extends javax.swing.JInternalFrame {
     private void buscarCliente() {
     String documento = txtDni.getText().trim();
 
-    if(documento.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Ingrese un DNI o RUC");
-        return;
-    }
-
-    Cliente clienteEncontrado = null;
-    for(Cliente c : Cliente.getListClientes()) {
-        if(c.getDocumento().equals(documento)) {
-            clienteEncontrado = c;
-            break;
-        }
-    }
-
-    if(clienteEncontrado != null) {
-        // Llenar campos con la información del cliente
-        jTextField14.setText(clienteEncontrado.getCorreo());   // Correo
-        jTextField15.setText(clienteEncontrado.getNumero());   // Teléfono
-        jTextField5.setText(clienteEncontrado.getDireccion()); // Dirección
-        // Si quieres, puedes mostrar nombre y apellido en otro JTextField
-        // por ejemplo: jTextFieldNombre.setText(clienteEncontrado.getNombre() + " " + clienteEncontrado.getApellido());
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Cliente no encontrado");
-        jTextField14.setText("");
-        jTextField15.setText("");
-        jTextField5.setText("");
-   // Abrir RegistrarCliente y pasar el DNI
-        Menu menu = (Menu) javax.swing.SwingUtilities.getWindowAncestor(this);
-        if (menu != null) {
-            RegistrarCliente rc = menu.abrirRegistrarCliente(); // devuelve la instancia
-            rc.setDni(txtDni.getText()); // aquí pasamos el DNI
-    }
-  }
+   
 }
 
     /**

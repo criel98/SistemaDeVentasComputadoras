@@ -5,6 +5,10 @@
 package Sistema;
 
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -265,11 +269,11 @@ public void setDni(String dni) {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-    String nombre = Nombre.getText().trim();
+     String nombre = Nombre.getText().trim();
     String apellido = Apellido.getText().trim();
     String correo = email.getText().trim();
-    String direc = direccion.getText().trim();  // dirección corregida
-    String telefono = numero.getText().trim();  // número corregido
+    String direc = direccion.getText().trim();
+    String telefono = numero.getText().trim();
     String documento = LecturaDF.getText().trim();
     String tipoDoc = DNI.isSelected() ? "DNI" : (RUC.isSelected() ? "RUC" : "");
 
@@ -289,18 +293,32 @@ public void setDni(String dni) {
         return;
     }
 
-       if (Cliente.checkRegistro(documento)) {
-        JOptionPane.showMessageDialog(this, "Este cliente ya está registrado.");
-        return;
+    // Ahora guardar en la BD con ConexionBD
+    String sql = "INSERT INTO clientes (documento, tipoDocumento, nombre, apellido, direccion, correo, numero) "
+               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    try (Connection conn = ConexionBD.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, documento);
+        ps.setString(2, tipoDoc);
+        ps.setString(3, nombre);
+        ps.setString(4, apellido);
+        ps.setString(5, direc);
+        ps.setString(6, correo);
+        ps.setString(7, telefono);
+
+        int filas = ps.executeUpdate();
+        if (filas > 0) {
+            JOptionPane.showMessageDialog(this, "Cliente registrado en la BD correctamente.");
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo registrar el cliente.");
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al registrar cliente: " + e.getMessage());
     }
-
-    // Crear nuevo cliente y agregarlo a la lista
-    Cliente c = new Cliente(documento, tipoDoc, nombre, apellido, direc, correo, telefono);
-    Cliente.getListClientes().add(c);
-    Cliente.guardarClientesEnArchivo();
-
-    JOptionPane.showMessageDialog(this, "Cliente registrado correctamente.");
-    limpiarCampos();
     }
 
 // Método de limpiar campos

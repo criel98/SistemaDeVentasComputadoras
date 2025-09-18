@@ -12,7 +12,6 @@ public class Menu extends javax.swing.JFrame {
 
     public Menu() {
         initComponents();
-        Cliente.cargarClientesDesdeArchivo();
         setLocationRelativeTo(null);
         // Creamos y agregamos el escritorio
         desktopPane = new JDesktopPane();

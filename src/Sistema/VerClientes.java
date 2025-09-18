@@ -1,5 +1,8 @@
 
 package Sistema;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class VerClientes extends javax.swing.JInternalFrame {
 
@@ -7,11 +10,7 @@ public class VerClientes extends javax.swing.JInternalFrame {
 
     public VerClientes() {
         initComponents();
-          // primero traes datos desde Clientes.csv
-          
-          Cliente.cargarClientesDesdeArchivo(); 
-          // luego llenas la tabla
-          cargarClientes();      
+            
           
         // opcional: tamaño por defecto
         setSize(520, 360);
@@ -117,28 +116,39 @@ public class VerClientes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void cargarClientes() {
-String[] columnas = {"Documento", "Tipo", "Nombre", "Apellido", "Direccion", "Correo", "Numero"};
-javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(columnas, 0);
-
-for (Cliente c : Cliente.getListClientes()) {
-    Object[] fila = {
-        c.getDocumento(),
-        c.getTipoDocumento(),
-        c.getNombre(),
-        c.getApellido(),
-        c.getDireccion(),
-        c.getCorreo(),
-        c.getNumero()
-    };
-    modelo.addRow(fila);
-}
-        tablaClientes.setModel(modelo);
-    }
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-        cargarClientes();
-        Cliente.cargarClientesDesdeArchivo();
+                                                 
+    String sql = "SELECT documento, tipoDocumento, nombre, apellido, direccion, correo, numero FROM clientes";
+    
+    try (Connection conn = ConexionBD.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        // Definir columnas de la tabla
+        String[] columnas = {"Documento", "Tipo Documento", "Nombre", "Apellido", "Direccion", "Correo", "Numero"};
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(null, columnas);
+        
+        // Agregar filas al modelo
+        while (rs.next()) {
+            Object[] fila = {
+                rs.getString("documento"),
+                rs.getString("tipoDocumento"),
+                rs.getString("nombre"),
+                rs.getString("apellido"),
+                rs.getString("direccion"),
+                rs.getString("correo"),
+                rs.getString("numero")
+            };
+            modelo.addRow(fila);
+        }
+        
+        // Asignar el modelo a la tabla
+        tablaClientes.setModel(modelo);
+
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     /**
