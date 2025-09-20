@@ -14,7 +14,7 @@ public class VerClientes extends javax.swing.JInternalFrame {
           
         // opcional: tamaño por defecto
         setSize(520, 360);
-        
+        cargarClientes();
                 
     // Bloquear que se puedan mover y redimensionar las columnas
     tablaClientes.getTableHeader().setReorderingAllowed(false);
@@ -119,36 +119,7 @@ public class VerClientes extends javax.swing.JInternalFrame {
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
                                                  
-    String sql = "SELECT documento, tipoDocumento, nombre, apellido, direccion, correo, numero FROM clientes";
-    
-    try (Connection conn = ConexionBD.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        
-        // Definir columnas de la tabla
-        String[] columnas = {"Documento", "Tipo Documento", "Nombre", "Apellido", "Direccion", "Correo", "Numero"};
-        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(null, columnas);
-        
-        // Agregar filas al modelo
-        while (rs.next()) {
-            Object[] fila = {
-                rs.getString("documento"),
-                rs.getString("tipoDocumento"),
-                rs.getString("nombre"),
-                rs.getString("apellido"),
-                rs.getString("direccion"),
-                rs.getString("correo"),
-                rs.getString("numero")
-            };
-            modelo.addRow(fila);
-        }
-        
-        // Asignar el modelo a la tabla
-        tablaClientes.setModel(modelo);
-
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + e.getMessage());
-    }
+    cargarClientes();
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     /**
@@ -175,6 +146,39 @@ public class VerClientes extends javax.swing.JInternalFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new VerClientes().setVisible(true));
     }
+
+    private void cargarClientes() {
+    String sql = "SELECT documento, tipoDocumento, nombre, apellido, direccion, correo, numero FROM clientes";
+
+    try (Connection conn = ConexionBD.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        // Definir columnas de la tabla
+        String[] columnas = {"Documento", "Tipo Documento", "Nombre", "Apellido", "Direccion", "Correo", "Numero"};
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(null, columnas);
+
+        // Agregar filas al modelo
+        while (rs.next()) {
+            Object[] fila = {
+                rs.getString("documento"),
+                rs.getString("tipoDocumento"),
+                rs.getString("nombre"),
+                rs.getString("apellido"),
+                rs.getString("direccion"),
+                rs.getString("correo"),
+                rs.getString("numero")
+            };
+            modelo.addRow(fila);
+        }
+
+        // Asignar el modelo a la tabla
+        tablaClientes.setModel(modelo);
+
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + e.getMessage());
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefrescar;

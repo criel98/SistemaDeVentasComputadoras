@@ -9,10 +9,17 @@ public class Menu extends javax.swing.JFrame {
     private Factura ventanaFactura;
     private RegistrarCliente ventanaRegistrarCliente;
     private VerClientes ventanaVerClientes;
+    private ConsultarStock ventanaVerStock;
 
     public Menu() {
         initComponents();
         setLocationRelativeTo(null);
+         // Agregar Stock
+        JMenuItem itemVerStock = new JMenuItem("Ver Stock");
+        //Abrir Stock
+        jMenu1.add(itemVerStock);
+        itemVerStock.addActionListener(e -> abrirVerStock());
+        
         // Creamos y agregamos el escritorio
         desktopPane = new JDesktopPane();
         setContentPane(desktopPane);
@@ -23,6 +30,7 @@ public class Menu extends javax.swing.JFrame {
         nuevaFactura.addActionListener(e -> abrirFactura());
         // Pantalla completa opcional
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
         // Agregar menú de Registro y Ver Clientes
         JMenuItem itemRegistrar = new JMenuItem("Registrar Cliente");
         JMenuItem itemVer = new JMenuItem("Ver Clientes");
@@ -31,7 +39,8 @@ public class Menu extends javax.swing.JFrame {
         jMenu2.add(itemVer);
         itemRegistrar.addActionListener(e -> abrirRegistrarCliente());
         itemVer.addActionListener(e -> abrirVerClientes());
-
+        
+       
     }
 
     public RegistrarCliente abrirRegistrarCliente() {
@@ -69,6 +78,27 @@ public class Menu extends javax.swing.JFrame {
                 ventanaVerClientes.setVisible(true);
             } else {
                 ventanaVerClientes.setSelected(true);
+            }
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+        
+    }
+    
+     private void abrirVerStock() {
+        try {
+            if (ventanaVerStock == null || ventanaVerStock.isClosed()) {
+                ventanaVerStock = new ConsultarStock();
+                desktopPane.add(ventanaVerStock);
+                ventanaVerStock.pack();
+
+                int x = (desktopPane.getWidth() - ventanaVerStock.getWidth()) / 2;
+                int y = (desktopPane.getHeight() - ventanaVerStock.getHeight()) / 2;
+                ventanaVerStock.setLocation(Math.max(x, 0), Math.max(y, 0));
+
+                ventanaVerStock.setVisible(true);
+            } else {
+                ventanaVerStock.setSelected(true);
             }
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
